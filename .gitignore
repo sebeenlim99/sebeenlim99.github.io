@@ -1,2 +1,5 @@
 .claude/
 .DS_Store
+
+# local-only layout drafts, not for publishing
+draft-*.html

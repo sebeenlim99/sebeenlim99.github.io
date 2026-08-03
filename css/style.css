@@ -286,6 +286,24 @@ figure.work .note {
   color: var(--ink);
 }
 
+/* English gloss sits under its Korean line */
+.cv-list li em,
+.cv-block h3 em {
+  display: block;
+  font-style: normal;
+  font-size: 0.82rem;
+  color: #a3a3a3;
+  margin-top: 2px;
+}
+
+.cv-block h3 em {
+  display: inline;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--muted);
+  margin-left: 6px;
+}
+
 /* exhibition */
 .ex-header {
   margin-bottom: 32px;
@@ -305,7 +323,20 @@ figure.work .note {
   aspect-ratio: 4 / 3;
   object-fit: cover;
   border: 1px solid var(--line);
+  cursor: pointer;
 }
+
+.ex-credits {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 4px 16px;
+  margin: 0 0 24px;
+  font-size: 0.9rem;
+  max-width: 520px;
+}
+
+.ex-credits dt { color: var(--muted); }
+.ex-credits dd { margin: 0; }
 
 /* text / essays */
 .toc {
@@ -349,6 +380,22 @@ figure.work .note {
   font-size: 0.97rem;
   line-height: 1.9;
   word-break: keep-all;
+}
+
+/* numbered notes that sit under a foreword */
+.prose p.fn {
+  font-size: 0.87rem;
+  color: var(--muted);
+  padding-left: 18px;
+  text-indent: -18px;
+  margin-bottom: 16px;
+}
+
+/* :first-of-type would match the byline, so key off the preceding body copy */
+.prose p:not(.fn) + p.fn {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
 }
 
 /* contact */
