@@ -307,6 +307,50 @@ figure.work .note {
   border: 1px solid var(--line);
 }
 
+/* text / essays */
+.toc {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 56px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.9rem;
+}
+
+.toc a {
+  color: var(--muted);
+  transition: color 0.2s;
+}
+
+.toc a:hover { color: var(--ink); }
+
+.prose {
+  max-width: 680px;
+  margin: 0 0 72px;
+  scroll-margin-top: 90px;
+}
+
+.prose:last-child { margin-bottom: 0; }
+
+.prose h3 {
+  font-size: 1.35rem;
+  margin: 0 0 6px;
+}
+
+.prose .byline {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0 0 28px;
+}
+
+.prose p {
+  margin: 0 0 20px;
+  font-size: 0.97rem;
+  line-height: 1.9;
+  word-break: keep-all;
+}
+
 /* contact */
 .contact-block {
   border-top: 1px solid var(--line);
