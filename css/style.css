@@ -113,7 +113,7 @@ nav.main a.active {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 30%;
+  object-position: center 42%;
 }
 
 .hero::after {
@@ -217,6 +217,46 @@ figure.work img {
 
 figure.work:hover img { transform: scale(1.04); }
 
+/* paired works: two states of one gesture, swapped on hover */
+figure.work.pair .frame { position: relative; }
+
+figure.work.pair .frame img { transition: opacity 0.45s ease; }
+
+figure.work.pair .frame img.alt {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: none;
+}
+
+figure.work.pair:hover .frame img.base { opacity: 0; }
+figure.work.pair:hover .frame img.alt { opacity: 1; }
+figure.work.pair:hover .frame img { transform: none; }
+
+figure.work.pair .pair-hint {
+  display: inline-block;
+  margin-left: 6px;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 1px 5px;
+  vertical-align: 1px;
+}
+
+figure.work.pair .title .swap-to { color: var(--muted); }
+figure.work.pair:hover .title .swap-from { color: var(--muted); }
+figure.work.pair:hover .title .swap-to { color: var(--ink); }
+
+@media (hover: none) {
+  figure.work.pair .pair-hint::after { content: " · 탭"; }
+  figure.work.pair.shown-alt .frame img.base { opacity: 0; }
+  figure.work.pair.shown-alt .frame img.alt { opacity: 1; }
+  figure.work.pair.shown-alt .title .swap-from { color: var(--muted); }
+  figure.work.pair.shown-alt .title .swap-to { color: var(--ink); }
+}
+
 figure.work figcaption {
   margin-top: 12px;
 }
@@ -231,6 +271,14 @@ figure.work .meta {
   font-size: 0.8rem;
   color: var(--muted);
   margin-top: 2px;
+}
+
+figure.work .meta-en {
+  font-size: 0.76rem;
+  color: var(--muted);
+  margin-top: 1px;
+  font-style: normal;
+  opacity: 0.85;
 }
 
 figure.work .note {
@@ -279,6 +327,28 @@ figure.work .note {
   padding: 6px 0;
   border-bottom: 1px dotted var(--line);
   color: var(--muted);
+}
+
+.cv-lang-divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 44px 0 28px;
+}
+
+.cv-lang-divider span {
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.cv-lang-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line);
 }
 
 .cv-list li .when {
@@ -374,6 +444,24 @@ figure.work .note {
   color: var(--muted);
   margin: 0 0 28px;
 }
+
+.prose .byline .written {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 1px 6px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+}
+
+.toc a .toc-when {
+  color: var(--line);
+  font-size: 0.8rem;
+  margin-left: 4px;
+}
+
+.toc a:hover .toc-when { color: var(--muted); }
 
 .prose p {
   margin: 0 0 20px;

@@ -5,6 +5,23 @@ document.addEventListener('DOMContentLoaded', () => {
     toggle.addEventListener('click', () => nav.classList.toggle('open'));
   }
 
+  // Paired works show their second state on hover. Touch devices get no hover,
+  // so the first tap swaps and the second opens the lightbox.
+  const touch = window.matchMedia('(hover: none)').matches;
+  if (touch) {
+    document.querySelectorAll('figure.work.pair').forEach((fig) => {
+      fig.addEventListener('click', (e) => {
+        if (!fig.classList.contains('shown-alt')) {
+          e.stopPropagation();
+          document.querySelectorAll('figure.work.pair.shown-alt').forEach((o) => {
+            if (o !== fig) o.classList.remove('shown-alt');
+          });
+          fig.classList.add('shown-alt');
+        }
+      }, true);
+    });
+  }
+
   const lightbox = document.querySelector('.lightbox');
   if (lightbox) {
     const lbImg = lightbox.querySelector('img');
@@ -13,8 +30,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('[data-lightbox]').forEach((el) => {
       el.addEventListener('click', () => {
-        lbImg.src = el.getAttribute('data-full') || el.querySelector('img').src;
-        lbCaption.textContent = el.getAttribute('data-caption') || '';
+        // a paired work opens whichever state is currently showing
+        const showingAlt = el.classList.contains('pair') &&
+          (el.matches(':hover') || el.classList.contains('shown-alt'));
+        lbImg.src = (showingAlt && el.getAttribute('data-full-alt')) ||
+          el.getAttribute('data-full') || el.querySelector('img').src;
+        lbCaption.textContent = (showingAlt && el.getAttribute('data-caption-alt')) ||
+          el.getAttribute('data-caption') || '';
         lightbox.classList.add('open');
       });
     });
