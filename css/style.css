@@ -493,6 +493,42 @@ figure.work .note {
   border-top: 1px solid var(--line);
 }
 
+/* exhibition checklist */
+.checklist-head {
+  margin: 48px 0 16px;
+  font-size: 0.98rem;
+  font-weight: 700;
+}
+
+.checklist-head em {
+  font-style: normal;
+  font-weight: 400;
+  color: var(--muted);
+  margin-left: 6px;
+  font-size: 0.86rem;
+}
+
+.checklist {
+  margin: 0;
+  padding-left: 1.6em;
+  max-width: 660px;
+  font-size: 0.92rem;
+}
+
+.checklist li {
+  padding: 7px 0;
+  border-bottom: 1px dotted var(--line);
+}
+
+.checklist .cl-title { color: var(--ink); }
+
+.checklist .cl-meta {
+  display: block;
+  color: var(--muted);
+  font-size: 0.82rem;
+  margin-top: 1px;
+}
+
 /* contact */
 .contact-block {
   border-top: 1px solid var(--line);
