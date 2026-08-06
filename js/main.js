@@ -23,31 +23,62 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const lightbox = document.querySelector('.lightbox');
-  if (lightbox) {
-    const lbImg = lightbox.querySelector('img');
-    const lbCaption = lightbox.querySelector('figcaption');
-    const closeBtn = lightbox.querySelector('.close');
+  if (!lightbox) return;
 
-    document.querySelectorAll('[data-lightbox]').forEach((el) => {
-      el.addEventListener('click', () => {
-        // a paired work opens whichever state is currently showing
-        const showingAlt = el.classList.contains('pair') &&
-          (el.matches(':hover') || el.classList.contains('shown-alt'));
-        lbImg.src = (showingAlt && el.getAttribute('data-full-alt')) ||
-          el.getAttribute('data-full') || el.querySelector('img').src;
-        lbCaption.textContent = (showingAlt && el.getAttribute('data-caption-alt')) ||
-          el.getAttribute('data-caption') || '';
-        lightbox.classList.add('open');
-      });
-    });
+  const closeBtn = lightbox.querySelector('.close');
 
-    const close = () => lightbox.classList.remove('open');
-    closeBtn.addEventListener('click', close);
-    lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) close();
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') close();
-    });
+  // Rebuild the lightbox body so a pair can be shown as two plates at once.
+  let stage = lightbox.querySelector('.lb-stage');
+  if (!stage) {
+    lightbox.querySelectorAll('figure').forEach((f) => f.remove());
+    stage = document.createElement('div');
+    stage.className = 'lb-stage';
+    lightbox.appendChild(stage);
   }
+
+  const plate = (src, caption) => {
+    const fig = document.createElement('figure');
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = caption || '';
+    fig.appendChild(img);
+    if (caption) {
+      const cap = document.createElement('figcaption');
+      cap.textContent = caption;
+      fig.appendChild(cap);
+    }
+    return fig;
+  };
+
+  const open = (el) => {
+    const src = el.getAttribute('data-full') ||
+      (el.querySelector('img') && el.querySelector('img').src);
+    const cap = el.getAttribute('data-caption') || '';
+    const altSrc = el.getAttribute('data-full-alt');
+    const altCap = el.getAttribute('data-caption-alt') || '';
+
+    stage.innerHTML = '';
+    stage.classList.toggle('is-pair', !!altSrc);
+    stage.appendChild(plate(src, cap));
+    if (altSrc) stage.appendChild(plate(altSrc, altCap));
+
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+
+  document.querySelectorAll('[data-lightbox]').forEach((el) => {
+    el.addEventListener('click', () => open(el));
+  });
+
+  const close = () => {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  };
+  closeBtn.addEventListener('click', close);
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox || e.target === stage) close();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') close();
+  });
 });

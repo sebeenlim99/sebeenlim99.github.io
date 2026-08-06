@@ -571,6 +571,15 @@ footer.site {
 
 .lightbox.open { display: flex; }
 
+.lb-stage {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 32px;
+  max-width: 100%;
+  max-height: 100%;
+}
+
 .lightbox figure {
   max-width: 900px;
   max-height: 90vh;
@@ -578,17 +587,29 @@ footer.site {
   text-align: center;
 }
 
+/* a pair shares the stage, so each plate takes half the width */
+.lb-stage.is-pair figure {
+  max-width: calc(50% - 16px);
+  flex: 0 1 auto;
+}
+
 .lightbox img {
   max-height: 74vh;
+  max-width: 100%;
   width: auto;
   margin: 0 auto;
 }
+
+.lb-stage.is-pair img { max-height: 70vh; }
 
 .lightbox figcaption {
   color: #f2f2f2;
   margin-top: 16px;
   font-size: 0.9rem;
+  word-break: keep-all;
 }
+
+.lb-stage.is-pair figcaption { font-size: 0.82rem; }
 
 .lightbox .close {
   position: absolute;
@@ -620,4 +641,15 @@ footer.site {
   }
   nav.main.open li { padding: 10px 0; border-bottom: 1px dotted var(--line); }
   .portrait-wide { margin-bottom: 36px; }
+
+  /* a pair stacks on narrow screens and the stage scrolls */
+  .lightbox { padding: 56px 16px 24px; align-items: flex-start; }
+  .lb-stage {
+    flex-direction: column;
+    gap: 28px;
+    overflow-y: auto;
+    width: 100%;
+  }
+  .lb-stage.is-pair figure { max-width: 100%; }
+  .lb-stage.is-pair img { max-height: 52vh; }
 }
