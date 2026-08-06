@@ -289,20 +289,27 @@ figure.work .note {
 }
 
 /* about / profile */
+.portrait-wide {
+  margin: 0 0 56px;
+}
+
+.portrait-wide img {
+  width: 100%;
+  border: 1px solid var(--line);
+}
+
 .about-grid {
   display: grid;
-  grid-template-columns: 300px 1fr;
+  grid-template-columns: 1fr;
   gap: 56px;
   align-items: start;
 }
 
-.about-grid .portrait {
-  border: 1px solid var(--line);
-}
-
 .about-grid .statement {
+  max-width: 640px;
   font-size: 1.02rem;
   color: var(--ink);
+  word-break: keep-all;
 }
 
 .cv-block { margin-top: 20px; }
@@ -576,6 +583,5 @@ footer.site {
     padding: 8px 24px 20px;
   }
   nav.main.open li { padding: 10px 0; border-bottom: 1px dotted var(--line); }
-  .about-grid { grid-template-columns: 1fr; }
-  .about-grid .portrait { max-width: 220px; }
+  .portrait-wide { margin-bottom: 36px; }
 }
